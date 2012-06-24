@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <TableRow >
+        <TextView
+        android:id="@+id/inputidlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already Registered Account in"
+         />
+        
+        <Spinner 
+        android:id="@+id/alreadyregistered"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+        
+    </TableRow>
+    
+    
+    
+    <TableRow >
+        <TextView
+        android:id="@+id/inputidlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Input Registration Id"
+         />
+        <EditText 
+            android:id="@+id/regid"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:inputType="number"
+       
+            />
+    </TableRow>
+    
+    <TableRow >
+        <TextView
+        android:id="@+id/chooselabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Account"
+         />
+        
+        <Spinner 
+        android:id="@+id/spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+    </TableRow>
+
+    
+    <Button 
+        android:id="@+id/button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:onClick="onClick"
+        />
+    
+        
+      
+
+</TableLayout>
