@@ -77,24 +77,54 @@ public class VirxAddAccounts extends Activity implements OnClickListener,
 	}
 
 	public void onClick(View view) {
-		Log.w("this", "on Method onClick");
-		if (!editText.getText().equals(null)&&!(editText.getText().toString().equalsIgnoreCase(""))) {
-			System.out.println("ada pertama");
-			Accounts accounts = new Accounts();
-			accounts.setReg_id(editText.getText().toString());
-			accounts.setAccount_name(getAccountName());
-			accounts = dataSource.addNewAccounts(accounts);
-			//((StateHelper) this.getApplication()).setAccounts(accounts);
-			Intent intent = new Intent(this, VirxChooseAccount.class);
-			this.startActivity(intent);
+		
+		if(view.getId()==R.id.scanner){
+			Intent intents = new Intent("com.google.zxing.client.android.SCAN");
+	        intents.putExtra("SCAN_MODE", "QR_CODE_MODE");
+	        startActivityForResult(intents, 0);
 		}else{
-			//System.out.println("availableName name="+availableName==null?"null":availableName.equals("")?"kosong":availableName);
-			if(availableName!=null&&!(availableName.trim().equals(""))){
-				System.out.println("ada kedua");
-				Intent intent = new Intent(this, VirxChooseAccount.class);
-				this.startActivity(intent);
+			Log.w("this", "on Method onClick");
+			if (!editText.getText().equals(null)&&!(editText.getText().toString().equalsIgnoreCase(""))) {
+				Accounts accounts = new Accounts();
+				accounts.setReg_id(editText.getText().toString());
+				accounts.setAccount_name(getAccountName());
+				accounts = dataSource.addNewAccounts(accounts);
+				//((StateHelper) this.getApplication()).setAccounts(accounts);
+				Intent intents = new Intent(this, VirxChooseAccount.class);
+				this.startActivity(intents);
+			}else{
+				if(availableName!=null&&!(availableName.trim().equals(""))){
+					Intent intent = new Intent(this, VirxChooseAccount.class);
+					this.startActivity(intent);
+				}
 			}
 		}
+		
+		
+		
+	}
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	    if (requestCode == 0) {
+	        if (resultCode == RESULT_OK) {
+	            String contents = intent.getStringExtra("SCAN_RESULT");
+	            String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+	            // Handle successful scan
+	            
+	            Accounts accounts = new Accounts();
+				//accounts.setReg_id(editText.getText().toString());
+	            
+	            accounts.setReg_id(contents);
+				accounts.setAccount_name(getAccountName());
+				accounts = dataSource.addNewAccounts(accounts);
+				//((StateHelper) this.getApplication()).setAccounts(accounts);
+				Intent intents = new Intent(this, VirxChooseAccount.class);
+				this.startActivity(intents);
+	            
+	        } else if (resultCode == RESULT_CANCELED) {
+	            // Handle cancel
+	        }
+	    }
 	}
 
 	public void onItemSelected(AdapterView<?> parent, View view, int pos,

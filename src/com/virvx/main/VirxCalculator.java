@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.virvx.util.GoogleAuthenticator;
 import com.virvx.util.TOTP;
 
 import android.app.Activity;
@@ -42,13 +43,18 @@ public class VirxCalculator extends Activity implements OnClickListener{
 		System.out.println("REGID="+((StateHelper)this.getApplication()).getAccounts().getReg_id());
 		Log.e("TOTP",((StateHelper)this.getApplication()).getAccounts().getReg_id());
 		
-		long T0 = 0;
-		long X = 30;
-		long T = (new Date().getTime() - T0) / X;
-		steps = Long.toHexString(T).toUpperCase();
-		result=TOTP.generateTOTP(((StateHelper)this.getApplication()).getAccounts().getReg_id(), steps, "8", "HmacSHA1");		
+		//long T0 = 0;
+		//long X = 30;
+		//long T = (new Date().getTime() - T0) / X;
+		//steps = Long.toHexString(T).toUpperCase();
+		long t = System.currentTimeMillis();
+		GoogleAuthenticator ga = new GoogleAuthenticator();
+		ga.setWindowSize(5);  //should give 5 * 30 seconds of grace...
+
+		long r = ga.generate_code(((StateHelper)this.getApplication()).getAccounts().getReg_id(), t);
+		//result=TOTP.generateTOTP(((StateHelper)this.getApplication()).getAccounts().getReg_id(), steps, "8", "HmacSHA1");		
 		counter.start();
-		totp.setText(result);
+		totp.setText(Long.valueOf(r).toString());
 	}
 	
 	public void onClick(View view) {

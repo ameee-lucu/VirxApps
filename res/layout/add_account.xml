@@ -33,7 +33,7 @@
             android:id="@+id/regid"
             android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-        	android:inputType="number"
+        	android:inputType="text"
        
             />
     </TableRow>
@@ -58,11 +58,17 @@
         android:id="@+id/button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Next"
+        android:text="Register Via Input / Next Page"
         android:onClick="onClick"
         />
     
-        
+        <Button 
+        android:id="@+id/scanner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Register Via Barcode"
+        android:onClick="onClick"
+        />
       
 
 </TableLayout>
